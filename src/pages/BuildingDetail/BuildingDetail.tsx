@@ -21,6 +21,7 @@ const BuildingDetail = () => {
   };
 
   const saveBuildingDetail = () => {
+    console.log('type', type);
     // { key: string; value: string }[] 형태를 Record<string, string> 형태로 변환
     // const properties = propertyList.reduce(
     //   (acc, { key, value }) => {
