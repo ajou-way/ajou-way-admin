@@ -1,41 +1,36 @@
 import { useState } from 'react';
-// import { useParams } from 'react-router';
+import { useParams } from 'react-router';
 import MDEditor from '@uiw/react-md-editor';
 
-// import { useBuildingMutation } from '@/queries/useBuildingMutation';
+import { useBuildingMutation } from '@/queries/useBuildingMutation';
 
 import { css } from '../../../styled-system/css';
 
 import * as S from './BuildingDetail.styles';
 
 const BuildingDetail = () => {
-  // const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();
 
   const [type, setType] = useState('');
-  const [value, setValue] = useState('**Hello world!!!**');
+  const [contents, setContents] = useState('');
 
-  // const { addBuildingDetailMutation } = useBuildingMutation();
+  const { addBuildingDetailMutation } = useBuildingMutation();
 
   const handleTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setType(e.target.value);
   };
 
-  const saveBuildingDetail = () => {
+  const handleContentsChange = (contents: string | undefined) => {
+    if (!contents) return;
+    setContents(contents);
+  };
+
+  const save = () => {
+    console.log('id', id);
     console.log('type', type);
-    // { key: string; value: string }[] 형태를 Record<string, string> 형태로 변환
-    // const properties = propertyList.reduce(
-    //   (acc, { key, value }) => {
-    //     acc[key] = value;
-    //     return acc;
-    //   },
-    //   {} as Record<string, string>
-    // );
-    // const info = {
-    //   buildingId: Number(id),
-    //   type,
-    //   properties,
-    // };
-    // addBuildingDetailMutation({ info });
+    console.log('contents', contents);
+
+    addBuildingDetailMutation({ id: Number(id), type, contents });
   };
 
   return (
@@ -59,11 +54,11 @@ const BuildingDetail = () => {
           <label htmlFor="parking">주차장</label>
         </div>
       </div>
-      <div className={css({ mb: '8' })}>
-        <MDEditor value={value} onChange={(value) => setValue(value ?? '')} />
-        {/* <MDEditor.Markdown source={value} style={{ whiteSpace: 'pre-wrap' }} /> */}
+      <div className={css({ display: 'flex', flexDirection: 'column', gap: '8', mb: '8' })}>
+        <MDEditor value={contents} onChange={handleContentsChange} />
+        <MDEditor.Markdown source={contents} />
       </div>
-      <button type="button" className={S.saveButton} onClick={saveBuildingDetail}>
+      <button type="button" className={S.saveButton} onClick={save}>
         저장하기
       </button>
     </div>
