@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { addBuildingDetail } from '@/apis/map';
+import { addBuildingDetail, createImageURL } from '@/apis/map';
 
 export const useBuildingMutation = () => {
   const { mutate: addBuildingDetailMutation } = useMutation({
@@ -9,5 +9,11 @@ export const useBuildingMutation = () => {
     onError: (error) => alert(error.message),
   });
 
-  return { addBuildingDetailMutation };
+  const { mutate: createImageURLMutation } = useMutation({
+    mutationFn: createImageURL,
+    onSuccess: () => alert('변환에 성공했습니다.'),
+    onError: (error) => alert(error.message),
+  });
+
+  return { addBuildingDetailMutation, createImageURLMutation };
 };

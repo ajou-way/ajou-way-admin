@@ -14,6 +14,9 @@ const Main = () => {
         <Link to={'/record'}>
           <button className={S.button}>좌표 기록</button>
         </Link>
+        <Link to={'/marker'}>
+          <button className={S.button}>관리자 마커 등록</button>
+        </Link>
       </div>
     </div>
   );

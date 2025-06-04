@@ -25,3 +25,25 @@ export const addBuildingDetail = async ({ id, type, contents }: BuildingDetailRe
     }),
   });
 };
+
+interface CreateImageURLResponse {
+  imageUrl: string;
+}
+
+export const createImageURL = async ({ image }: { image: File }) => {
+  return await fetcher.post<CreateImageURLResponse>({
+    endpoint: '/api/utils/images/upload',
+    body: JSON.stringify({
+      file: image,
+    }),
+  });
+};
+
+// export const addMarker = async ({}) => {
+//   return await fetcher.post({
+//     endpoint: '/api/admin/maps/markers',
+//     body: JSON.stringify({
+//       // Add marker data here
+//     }),
+//   });
+// };

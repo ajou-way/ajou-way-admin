@@ -14,15 +14,28 @@ const BuildingDetail = () => {
   const [type, setType] = useState('');
   const [contents, setContents] = useState('');
 
-  const { addBuildingDetailMutation } = useBuildingMutation();
+  const [image, setImage] = useState<File | null>(null);
+  const [imageURL, setImageURL] = useState('');
+
+  const { addBuildingDetailMutation, createImageURLMutation } = useBuildingMutation();
 
   const handleTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setType(e.target.value);
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    setImage(e.target.files[0]);
+  };
+
   const handleContentsChange = (contents: string | undefined) => {
     if (!contents) return;
     setContents(contents);
+  };
+
+  const convertImage = () => {
+    if (!image) return;
+    createImageURLMutation({ image }, { onSuccess: ({ imageUrl }) => setImageURL(imageUrl) });
   };
 
   const save = () => {
@@ -53,6 +66,13 @@ const BuildingDetail = () => {
           <input type="radio" id="parking" name="type" value="PARKING" onChange={handleTypeChange} />
           <label htmlFor="parking">주차장</label>
         </div>
+      </div>
+      <div className={css({ display: 'flex', flexDirection: 'column', gap: '4', mb: '8' })}>
+        <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png" onChange={handleImageChange} />
+        <button type="button" className={S.saveButton} onClick={convertImage}>
+          이미지 URL 변환하기
+        </button>
+        <p>{imageURL}</p>
       </div>
       <div className={css({ display: 'flex', flexDirection: 'column', gap: '8', mb: '8' })}>
         <MDEditor value={contents} onChange={handleContentsChange} />
