@@ -20,6 +20,13 @@ const fetcher = {
       });
     }
 
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (accessToken) {
+      if (!headers) headers = {};
+      headers['Authorization'] = `Bearer ${accessToken}`;
+    }
+
     const response = await fetch(url.toString(), {
       method,
       headers: headers && headers,

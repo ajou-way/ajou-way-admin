@@ -1,5 +1,6 @@
 import { css } from '../../../styled-system/css';
 import { Link } from 'react-router';
+import { Button } from '@chakra-ui/react';
 
 import { useBuildingsQuery } from '@/queries/useBuildingsQuery';
 
@@ -26,9 +27,7 @@ const BuildingList = () => {
           >
             <p>{building.name}</p>
             <Link to={`/building/${building.id}`}>
-              <button className={css({ bg: 'blue.400', color: 'white', p: '2', rounded: 'md', fontSize: 'xs' })}>
-                건물 정보 입력
-              </button>
+              <Button fontSize="sm">건물 정보 입력</Button>
             </Link>
           </li>
         ))}

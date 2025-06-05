@@ -39,11 +39,27 @@ export const createImageURL = async ({ image }: { image: File }) => {
   });
 };
 
-// export const addMarker = async ({}) => {
-//   return await fetcher.post({
-//     endpoint: '/api/admin/maps/markers',
-//     body: JSON.stringify({
-//       // Add marker data here
-//     }),
-//   });
-// };
+interface AddMarkerRequest {
+  latitude: number;
+  longitude: number;
+  title: string;
+  contents: string;
+  targetMajors: string[];
+  deadLine: string;
+}
+
+export const addMarker = async ({ latitude, longitude, title, contents, targetMajors, deadLine }: AddMarkerRequest) => {
+  return await fetcher.post({
+    endpoint: '/api/admin/maps/markers',
+    body: JSON.stringify({
+      title,
+      contents,
+      geometry: {
+        type: 'Point',
+        coordinates: [longitude, latitude],
+      },
+      targetMajors,
+      deadline: deadLine,
+    }),
+  });
+};
