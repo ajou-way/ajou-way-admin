@@ -8,7 +8,8 @@ import { useBuildingMutation } from '@/queries/useBuildingMutation';
 import { css } from '../../../styled-system/css';
 
 const items = [
-  { label: '출입문 정보', value: 'DOOR' },
+  { label: '기본 정보', value: 'INFORMATION' },
+  { label: '출입문 정보', value: 'ENTRANCE' },
   { label: '식당', value: 'RESTAURANT' },
   { label: '편의점', value: 'CONVENIENCE_STORE' },
   { label: '주차장', value: 'PARKING' },
