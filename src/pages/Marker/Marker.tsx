@@ -1,5 +1,5 @@
 import { css } from '../../../styled-system/css';
-import { HStack, Input, Field, Text, Button } from '@chakra-ui/react';
+import { HStack, Input, Field, Text, Button, Heading } from '@chakra-ui/react';
 import { useEffect, useState, useCallback } from 'react';
 import { useMap } from '@/hooks/useMap';
 import { useAuthQuery } from '@/queries/useAuthQuery';
@@ -55,9 +55,7 @@ const Marker = () => {
 
   return (
     <div className={css({ p: '10' })}>
-      <Text fontSize="2xl" fontWeight="semibold" marginBottom="1">
-        관리자 마커 등록 페이지
-      </Text>
+      <Heading mb="1">관리자 마커 등록 페이지</Heading>
       <Text fontSize="sm" marginBottom="8">
         지도를 클릭하면 위도, 경도가 자동으로 입력됩니다.
       </Text>
